@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Settle This</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@400;700&family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="brand">alvin.fun</div>
+    <div class="header">
+        <h1>Let's Settle This.</h1>
+        <div class="subtitle">
+            Internet debates have raged for too long.<br>
+            It's time to settle the big questions so we can move on.
+        </div>
+    </div>
+
+    <div class="questions-container" id="questionsContainer">
+        <!-- Questions will be dynamically inserted here -->
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="background.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const questionIcons = {
+            gif: '<img src="icons/gif.svg" width="30" height="30" alt="gif">',
+            jif: '<img src="icons/jif.svg" width="30" height="30" alt="jif">',
+            chicken: '<img src="icons/chicken.svg" width="30" height="30" alt="chicken">',
+            egg: '<img src="icons/egg.svg" width="30" height="30" alt="egg">',
+            diagonal: '<img src="icons/diagonal.svg" width="30" height="30" alt="diagonal">',
+            horizontal: '<img src="icons/horizontal.svg" width="30" height="30" alt="horizontal">',
+            cereal_yes: '<img src="icons/yes.svg" width="30" height="30" alt="horizontal">',
+            cereal_no: '<img src="icons/no.svg" width="30" height="30" alt="horizontal">',
+            over: '<img src="icons/over.svg" width="30" height="30" alt="horizontal">',
+            under: '<img src="icons/under.svg" width="30" height="30" alt="horizontal">',
+            pepsi: '<img src="icons/pepsi.svg" width="30" height="30" alt="horizontal">',
+            coke: '<img src="icons/coke.svg" width="30" height="30" alt="horizontal">',
+            pizza_yes: '<img src="icons/yes.svg" width="30" height="30" alt="horizontal">',
+            pizza_no: '<img src="icons/no.svg" width="30" height="30" alt="horizontal">',
+            dog_front: '<img src="icons/dog-first.svg" width="30" height="30" alt="horizontal">',
+            dog_back: '<img src="icons/dog-second.svg" width="30" height="30" alt="horizontal">',
+            hotdog_yes: '<img src="icons/yes.svg" width="30" height="30" alt="horizontal">',
+            hotdog_no: '<img src="icons/no.svg" width="30" height="30" alt="horizontal">',
+            marvel: '<img src="icons/marvel.svg" width="30" height="30" alt="horizontal">',
+            dc: '<img src="icons/dc.svg" width="30" height="30" alt="horizontal">',
+            morning: '<img src="icons/morning.png" width="30" height="30" alt="horizontal">',
+            night: '<img src="icons/night.png" width="30" height="30" alt="horizontal">',
+            xbox: '<img src="icons/xbox.svg" width="30" height="30" alt="horizontal">',
+            playstation: '<img src="icons/playstation.svg" width="30" height="30" alt="horizontal">',
+            sock_shoe: '<img src="icons/sock-shoe.svg" width="30" height="30" alt="horizontal">',
+            sock_sock: '<img src="icons/sock-sock.svg" width="30" height="30" alt="horizontal">',
+            iphone: '<img src="icons/apple.svg" width="30" height="30" alt="horizontal">',
+            android: '<img src="icons/android.svg" width="30" height="30" alt="horizontal">',
+            one_hole: '<img src="icons/one-hole.svg" width="30" height="30" alt="horizontal">',
+            two_holes: '<img src="icons/two-holes.svg" width="30" height="30" alt="horizontal">',
+            books: '<img src="icons/books.png" width="30" height="30" alt="horizontal">',
+            ebooks: '<img src="icons/ebooks.png" width="30" height="30" alt="horizontal">',
+            fridge: '<img src="icons/fridge.png" width="30" height="30" alt="horizontal">',
+            cupboard: '<img src="icons/cupboard.png" width="30" height="30" alt="horizontal">',
+            tea: '<img src="icons/tea.png" width="30" height="30" alt="horizontal">',
+            coffee: '<img src="icons/coffee.png" width="30" height="30" alt="horizontal">',
+            spacebar: '<img src="icons/spacebar.png" width="30" height="30" alt="horizontal">',
+            mouse: '<img src="icons/mouse.png" width="30" height="30" alt="horizontal">',
+            cereal_first: '<img src="icons/cereal-first.png" width="30" height="30" alt="horizontal">',
+            milk_first: '<img src="icons/milk-first.png" width="30" height="30" alt="horizontal">',
+        };
+
+        const questions = [
+            {
+                id: 1,
+                question: "How do you pronounce gif?",
+                options: {
+                    a: "Gif",
+                    b: "Jif"
+                },
+                icons: {
+                    a: questionIcons.gif,
+                    b: questionIcons.jif
+                },
+                correctAnswer: "a",
+                resultMessage: "It's pronounced gif.",
+                stats: {
+                    percentages: [84, 16],
+                    totalVotes: 9815775
+                }
+            },
+            {
+                id: 2,
+                question: "What came first, the chicken or the egg?",
+                options: {
+                    a: "Chicken",
+                    b: "Egg"
+                },
+                icons: {
+                    a: questionIcons.chicken,
+                    b: questionIcons.egg
+                },
+                correctAnswer: "b",
+                resultMessage: "The egg came first.",
+                stats: {
+                    percentages: [49, 51],
+                    totalVotes: 9059493
+                }
+            },
+            {
+                id: 3,
+                question: "Should a sandwich be cut diagonally or horizontally?",
+                options: {
+                    a: "Diagonally",
+                    b: "Horizontally"
+                },
+                icons: {
+                    a: questionIcons.diagonal,
+                    b: questionIcons.horizontal
+                },
+                correctAnswer: "a",
+                resultMessage: "A sandwich should be cut diagonally.",
+                stats: {
+                    percentages: [79, 21],
+                    totalVotes: 8892047
+                }
+            },
+            {
+                id: 4,
+                question: "Is cereal a soup?",
+                options: {
+                    a: "Yes",
+                    b: "No"
+                },
+                icons: {
+                    a: questionIcons.cereal_yes,
+                    b: questionIcons.cereal_no
+                },
+                correctAnswer: "b",
+                resultMessage: "Cereal is not a soup.",
+                stats: {
+                    percentages: [21, 79],
+                    totalVotes: 8851527
+                }
+            },
+            {
+                id: 5,
+                question: "Toilet paper over or under?",
+                options: {
+                    a: "Over",
+                    b: "Under"
+                },
+                icons: {
+                    a: questionIcons.over,
+                    b: questionIcons.under
+                },
+                correctAnswer: "a",
+                resultMessage: "The correct way is over.",
+                stats: {
+                    percentages: [87, 13],
+                    totalVotes: 8730063
+                }
+            },
+            {
+                id: 6,
+                question: "Pepsi or Coke?",
+                options: {
+                    a: "Pepsi",
+                    b: "Coke"
+                },
+                icons: {
+                    a: questionIcons.pepsi,
+                    b: questionIcons.coke
+                },
+                correctAnswer: "b",
+                resultMessage: "Coke is better.",
+                stats: {
+                    percentages: [35, 65],
+                    totalVotes: 8592702
+                }
+            },
+            {
+                id: 7,
+                question: "Is pineapple on pizza good?",
+                options: {
+                    a: "Yes",
+                    b: "No"
+                },
+                icons: {
+                    a: questionIcons.pizza_yes,
+                    b: questionIcons.pizza_no
+                },
+                correctAnswer: "b",
+                resultMessage: "Pineapple on pizza is not good.",
+                stats: {
+                    percentages: [36, 64],
+                    totalVotes: 8597673
+                }
+            },
+            {
+                id: 8,
+                question: "How would a dog wear pants?",
+                options: {
+                    a: "Like this",
+                    b: "Or, Like this"
+                },
+                icons: {
+                    a: questionIcons.dog_front,
+                    b: questionIcons.dog_back
+                },
+                correctAnswer: "b",
+                resultMessage: "The dog would wear pants like this.",
+                stats: {
+                    percentages: [17, 83],
+                    totalVotes: 8378965
+                }
+            },
+            {
+                id: 9,
+                question: "Are hot dogs a sandwich?",
+                options: {
+                    a: "Yes",
+                    b: "No"
+                },
+                icons: {
+                    a: questionIcons.hotdog_yes,
+                    b: questionIcons.hotdog_no
+                },
+                correctAnswer: "b",
+                resultMessage: "Hot dogs are not a sandwich.",
+                stats: {
+                    percentages: [37, 63],
+                    totalVotes: 8008152
+                }
+            },
+            {
+                id: 10,
+                question: "Marvel or DC?",
+                options: {
+                    a: "Marvel",
+                    b: "DC"
+                },
+                icons: {
+                    a: questionIcons.marvel,
+                    b: questionIcons.dc
+                },
+                correctAnswer: "a",
+                resultMessage: "Marvel wins.",
+                stats: {
+                    percentages: [82, 18],
+                    totalVotes: 7787529
+                }
+            },
+            {
+                id: 11,
+                question: "Morning Bird or Night Owl?",
+                options: {
+                    a: "Morning Bird",
+                    b: "Night Owl"
+                },
+                icons: {
+                    a: questionIcons.morning,
+                    b: questionIcons.night
+                },
+                correctAnswer: "b",
+                resultMessage: "Night Owl it is.",
+                stats: {
+                    percentages: [49, 51],
+                    totalVotes: 7456852
+                }
+            },
+            {
+                id: 12,
+                question: "Xbox or Playstation?",
+                options: {
+                    a: "Xbox",
+                    b: "Playstation"
+                },
+                icons: {
+                    a: questionIcons.xbox,
+                    b: questionIcons.playstation
+                },
+                correctAnswer: "b",
+                resultMessage: "Playstation is better.",
+                stats: {
+                    percentages: [37, 63],
+                    totalVotes: 7596085
+                }
+            },
+            {
+                id: 13,
+                question: "SOCK-SHOE | SOCK-SHOE or SOCK-SOCK | SHOE SHOE?",
+                options: {
+                    a: "First",
+                    b: "Second"
+                },
+                icons: {
+                    a: questionIcons.sock_shoe,
+                    b: questionIcons.sock_sock
+                },
+                correctAnswer: "b",
+                resultMessage: "SOCK-SOCK | SHOE SHOE is the correct way.",
+                stats: {
+                    percentages: [17, 83],
+                    totalVotes: 7176346
+                }
+            },
+            {
+                id: 14,
+                question: "iPhone or Android?",
+                options: {
+                    a: "iPhone",
+                    b: "Android"
+                },
+                icons: {
+                    a: questionIcons.iphone,
+                    b: questionIcons.android
+                },
+                correctAnswer: "a",
+                resultMessage: "iPhone wins.",
+                stats: {
+                    percentages: [62, 38],
+                    totalVotes: 7175026
+                }
+            },
+            {
+                id: 15,
+                question: "Does a straw have one hole or two?",
+                options: {
+                    a: "One",
+                    b: "Two"
+                },
+                icons: {
+                    a: questionIcons.one_hole,
+                    b: questionIcons.two_holes
+                },
+                correctAnswer: "a",
+                resultMessage: "The straw has one hole.",
+                stats: {
+                    percentages: [60, 40],
+                    totalVotes: 7095711
+                }
+            },
+            {
+                id: 16,
+                question: "Books or eBooks are better?",
+                options: {
+                    a: "Books",
+                    b: "eBooks"
+                },
+                icons: {
+                    a: questionIcons.books,
+                    b: questionIcons.ebooks
+                },
+                correctAnswer: "a",
+                resultMessage: "Books are more nostalgic and authentic.",
+                stats: {
+                    percentages: [68, 32],
+                    totalVotes: 6923751
+                }
+            },
+            {
+                id: 17,
+                question: "Do you put ketchup in the fridge or cupboard?",
+                options: {
+                    a: "Fridge",
+                    b: "Cupboard"
+                },
+                icons: {
+                    a: questionIcons.fridge,
+                    b: questionIcons.cupboard
+                },
+                correctAnswer: "a",
+                resultMessage: "Ketchup belongs in the fridge.",
+                stats: {
+                    percentages: [73, 27],
+                    totalVotes: 6923751
+                }
+            },
+            {
+                id: 18,
+                question: "Coffee or Tea is the best?",
+                options: {
+                    a: "Tea",
+                    b: "Coffee"
+                },
+                icons: {
+                    a: questionIcons.tea,
+                    b: questionIcons.coffee
+                },
+                correctAnswer: "b",
+                resultMessage: "Coffee fuels the world.",
+                stats: {
+                    percentages: [45, 55],
+                    totalVotes: 6923751
+                }
+            },
+            {
+                id: 19,
+                question: "Would you pause a video with spacebar or use mouse?",
+                options: {
+                    a: "Spacebar",
+                    b: "Mouse"
+                },
+                icons: {
+                    a: questionIcons.spacebar,
+                    b: questionIcons.mouse
+                },
+                correctAnswer: "a",
+                resultMessage: "Obviously Spacebar.",
+                stats: {
+                    percentages: [73, 27],
+                    totalVotes: 6923345
+                }
+            },
+            {
+                id: 20,
+                question: "Add Milk, before or after the cereal in a bowl?",
+                options: {
+                    a: "Cereal First",
+                    b: "Milk First"
+                },
+                icons: {
+                    a: questionIcons.cereal_first,
+                    b: questionIcons.milk_first
+                },
+                correctAnswer: "a",
+                resultMessage: "Cereal first, always—it’s the universal rule!",
+                stats: {
+                    percentages: [80, 20],
+                    totalVotes: 6942789
+                }
+            }
+        ];
+
+        function createQuestionElement(questionData) {
+            const questionGroup = document.createElement('div');
+            questionGroup.className = 'question-group';
+            questionGroup.innerHTML = `
+                <h2>${questionData.question}</h2>
+                <div class="options" id="options-${questionData.id}">
+                    <div class="option" onclick="vote(${questionData.id}, 'a')">
+                        ${questionData.icons?.a || ''}
+                        <span>${questionData.options.a}</span>
+                    </div>
+                    <div class="option" onclick="vote(${questionData.id}, 'b')">
+                        ${questionData.icons?.b || ''}
+                        <span>${questionData.options.b}</span>
+                    </div>
+                </div>
+                <div class="results" id="results-${questionData.id}">
+                    <div class="decision">
+                        <h3>THE INTERNET HAS DECIDED.</h3>
+                        <p>${questionData.resultMessage}</p>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="votes">
+                        <span>${questionData.options.a} (<span class="percentage-a">0</span>%)</span>
+                        <span class="total-votes">0 votes</span>
+                        <span>${questionData.options.b} (<span class="percentage-b">0</span>%)</span>
+                    </div>
+                </div>
+            `;
+            return questionGroup;
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            questions.forEach(question => {
+                container.appendChild(createQuestionElement(question));
+            });
+            
+            // Add the message
+            const finalMessage = document.createElement('div');
+            finalMessage.style.textAlign = 'center';
+            finalMessage.style.marginTop = '10px';
+            finalMessage.style.color = '#4a5568';
+            finalMessage.style.fontSize = '16px';
+            finalMessage.style.fontWeight = '400';
+            finalMessage.innerHTML = "Now that the internet has decided the big questions,<br>you are finally free from the endless debates.";
+            container.appendChild(finalMessage);
+
+            // Add the share button
+            const shareButton = document.createElement('button');
+            shareButton.className = 'share-button';
+            shareButton.textContent = 'Share Your Answers';
+            shareButton.onclick = shareAnswers;
+            container.appendChild(shareButton);
+        }
+
+        const userAnswers = {};
+
+        // Modify your existing vote function to store answers
+        function vote(questionId, choice) {
+            userAnswers[questionId] = choice;
+            
+            const question = questions.find(q => q.id === questionId);
+            const options = document.querySelector(`#options-${questionId}`);
+            const results = document.querySelector(`#results-${questionId}`);
+            
+            options.classList.add('voted');
+            results.classList.add('show');
+            
+            setTimeout(() => {
+                const progressBar = results.querySelector('.progress-bar');
+                progressBar.style.width = `${question.stats.percentages[0]}%`;
+                
+                const totalVotesElement = results.querySelector('.total-votes');
+                const percentageAElement = results.querySelector('.percentage-a');
+                const percentageBElement = results.querySelector('.percentage-b');
+                
+                animateNumber(totalVotesElement, 0, question.stats.totalVotes, 1000);
+                animatePercentage(percentageAElement, 0, question.stats.percentages[0], 1000);
+                animatePercentage(percentageBElement, 0, question.stats.percentages[1], 1000);
+            }, 100);
+        }
+
+        // Add the shareAnswers function
+        function shareAnswers() {
+            const button = document.querySelector('.share-button');
+            let shareText = "😎 My Answers to Life's Big Questions\n\n";
+            
+            questions.forEach(q => {
+                const answer = userAnswers[q.id];
+                if (answer) {
+                    shareText += `>> ${q.question}\n`;
+                    shareText += `I chose: ${q.options[answer]}\n\n`;
+                }
+            });
+            
+            shareText += "📌 Take the quiz at: [Your Website URL]";
+            
+            navigator.clipboard.writeText(shareText).then(() => {
+                button.textContent = "It's Copied! Paste it anywhere! Have Fun!";
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = "Share Your Answers";
+                    button.classList.remove('copied');
+                }, 3000);
+            });
+        }
+
+        function animateNumber(element, start, end, duration) {
+            let current = start;
+            const range = end - start;
+            const increment = range / (duration / 16);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                element.textContent = Math.round(current).toLocaleString() + " votes";
+                if (current >= end) {
+                    element.textContent = end.toLocaleString() + " votes";
+                    clearInterval(timer);
+                }
+            }, 16);
+        }
+
+        function animatePercentage(element, start, end, duration) {
+            let current = start;
+            const range = end - start;
+            const increment = range / (duration / 16);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                element.textContent = Math.round(current * 10) / 10;
+                if (current >= end) {
+                    element.textContent = end;
+                    clearInterval(timer);
+                }
+            }, 16);
+        }
+
+        document.addEventListener('DOMContentLoaded', renderQuestions);
+        document.addEventListener('DOMContentLoaded', function() {
+        const bgMusic = document.getElementById('bgMusic');
+        bgMusic.volume = 0.5;  // 30% volume
+        bgMusic.play();
+    });
+    </script>
+</body>
+</html>
