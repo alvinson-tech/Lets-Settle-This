@@ -276,8 +276,131 @@ h2 {
     background-size: 200% auto;
 }
 
+/* Mobile Responsive Styles */
 @media (max-width: 480px) {
+    body {
+        padding: 12px;
+        background-size: 15px 15px; /* Smaller grid pattern */
+    }
+
+    .brand {
+        font-size: 14px;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 12px;
+        line-height: 1.1;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    .subtitle br {
+        display: none;
+    }
+
+    .questions-container {
+        gap: 30px;
+    }
+
+    .question-group {
+        padding-bottom: 30px;
+    }
+
+    h2 {
+        font-size: 18px;
+        margin-bottom: 12px;
+        padding: 0 15px;
+        line-height: 1.3;
+    }
+
     .options {
-        grid-template-columns: 1fr;
+        gap: 8px;
+        max-width: 280px;
+    }
+
+    .option {
+        padding: 10px 14px;
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .option svg, 
+    .option img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .results {
+        padding: 15px;
+        max-width: 300px;
+        margin-top: 15px;
+    }
+
+    .decision h3 {
+        font-size: 10px;
+        margin-bottom: 4px;
+    }
+
+    .decision p {
+        font-size: 14px;
+    }
+
+    .progress-container {
+        height: 12px;
+        margin: 10px 0;
+    }
+
+    .votes {
+        font-size: 10px;
+    }
+
+    .share-button {
+        padding: 10px 20px;
+        font-size: 13px;
+        margin-top: 20px;
+    }
+
+    /* Adjust the decorative elements */
+    body::before,
+    body::after {
+        width: 200px;
+        height: 200px;
+    }
+
+    .header::before,
+    .header::after {
+        width: 80px;
+    }
+
+    /* Final message adjustments */
+    .questions-container > div:last-child {
+        font-size: 14px;
+        padding: 0 15px;
+        line-height: 1.4;
+    }
+}
+
+/* Additional adjustments for very small screens */
+@media (max-width: 320px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    .options {
+        max-width: 240px;
+    }
+
+    .results {
+        max-width: 260px;
     }
 }
