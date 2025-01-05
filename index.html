@@ -21,10 +21,6 @@
         <!-- Questions will be dynamically inserted here -->
     </div>
 
-    <audio id="bgMusic" loop>
-        <source src="background.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
         const questionIcons = {
             gif: '<img src="icons/gif.svg" width="30" height="30" alt="gif">',
@@ -572,11 +568,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', renderQuestions);
-        document.addEventListener('DOMContentLoaded', function() {
-        const bgMusic = document.getElementById('bgMusic');
-        bgMusic.volume = 0.5;  // 30% volume
-        bgMusic.play();
-    });
     </script>
 </body>
 </html>
